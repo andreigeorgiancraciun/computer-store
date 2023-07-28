@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <title>Sales</title>
+    <link rel="stylesheet" type="text/css" href="/css/style.css">
+</head>
+<body>
+<!-- Header -->
+<div class="header">
+    <h1 class="store-name">Magazin Calculatoare</h1>
+    <h1 class="store-name">Sales section</h1>
+    <ul class="nav-links">
+        <li th:if="${#authorization.expression('hasRole(''USER'') or hasRole(''ADMIN'')')}"><a th:href="@{/model/produse/get}">Products</a></li>
+        <li th:if="${#authorization.expression('hasRole(''ADMIN'')')}"><a th:href="@{/model/angajati/get}">Employees</a></li>
+        <li th:if="${#authorization.expression('hasRole(''ADMIN'')')}"><a th:href="@{/model/vanzari/get}">Sales</a></li>
+        <li th:if="${#authorization.expression('hasRole(''ADMIN'')')}"><a th:href="@{/model/clienti/get}">Clients</a></li>
+        <li class="logout"><a th:href="@{/logout}">Logout</a></li>
+    </ul>
+</div>
+
+<!-- Content -->
+<div class="content">
+    <div class="product-list-header">
+        <h2 class="product-list-heading">Sales List</h2>
+    </div>
+    <table>
+        <thead>
+        <tr>
+            <th>Product Name</th>
+            <th>Price</th>
+            <th>Client Name</th>
+            <th>Client Prenume</th>
+            <th>Angajat Nume</th>
+            <th>Angajat Prenume</th>
+            <th>Sale Date</th>
+            <th></th>
+        </tr>
+        </thead>
+        <tbody>
+        <!-- Loop through the sales and display them in the table -->
+        <tr th:each="vanzare : ${vanzari}">
+            <td th:text="${vanzare.produs.nume}"></td>
+            <td th:text="${vanzare.produs.pret}"></td>
+            <td th:text="${vanzare.client.nume}"></td>
+            <td th:text="${vanzare.client.prenume}"></td>
+            <td th:text="${vanzare.angajat.nume}"></td>
+            <td th:text="${vanzare.angajat.prenume}"></td>
+            <td th:text="${vanzare.dataVanzare}"></td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+<!-- Footer -->
+<div class="footer">
+    &copy; 2023 Your Store Name. All rights reserved.
+</div>
+</body>
+</html>

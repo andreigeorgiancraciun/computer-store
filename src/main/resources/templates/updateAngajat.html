@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+  <title>Update Employee</title>
+  <link rel="stylesheet" type="text/css" href="/css/style.css">
+</head>
+<body>
+<!-- Header -->
+<div class="header">
+  <h1 class="store-name">Magazin Calculatoare</h1>
+  <h1 class="store-name">Update Employee</h1>
+  <ul class="nav-links">
+    <li th:if="${#authorization.expression('hasRole(''USER'') or hasRole(''ADMIN'')')}"><a th:href="@{/model/produse/get}">Products</a></li>
+    <li th:if="${#authorization.expression('hasRole(''ADMIN'')')}"><a th:href="@{/model/angajati/get}">Employees</a></li>
+    <li th:if="${#authorization.expression('hasRole(''ADMIN'')')}"><a th:href="@{/model/vanzari/get}">Sales</a></li>
+    <li th:if="${#authorization.expression('hasRole(''ADMIN'')')}"><a th:href="@{/model/clienti/get}">Clients</a></li>
+    <li class="logout"><a th:href="@{/logout}">Logout</a></li>
+  </ul>
+</div>
+
+<!-- Content -->
+<div class="content">
+  <h2>Update Employee</h2>
+  <form th:action="@{/model/angajati/update/{id}(id=${angajat.id})}" method="post">
+    <label for="nume">Name:</label>
+    <input type="text" id="nume" name="nume" th:value="${angajat.nume}" required>
+
+    <label for="prenume">Prenume:</label>
+    <input type="text" id="prenume" name="prenume" th:value="${angajat.prenume}" required>
+
+    <label for="functie">Position:</label>
+    <input type="text" id="functie" name="functie" th:value="${angajat.functie}" required>
+
+    <label for="salariu">Salary:</label>
+    <input type="number" id="salariu" name="salariu" th:value="${angajat.salariu}" required>
+
+    <!-- Add a hidden input field to send the employee ID to the controller -->
+    <input type="hidden" id="id" name="id" th:value="${angajat.id}">
+
+    <button type="submit">Update</button>
+  </form>
+</div>
+
+<!-- Footer -->
+<div class="footer">
+  &copy; 2023 Your Store Name. All rights reserved.
+</div>
+</body>
+</html>

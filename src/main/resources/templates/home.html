@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <title>Store Management System</title>
+    <link rel="stylesheet" type="text/css" href="/css/style.css">
+</head>
+<body>
+<!-- Header -->
+<div class="header" >
+    <h1 class="store-name">Magazin Calculatoare</h1>
+    <ul class="nav-links">
+        <li th:if="${#authorization.expression('hasRole(''USER'') or hasRole(''ADMIN'')')}"><a th:href="@{/model/produse/get}">Products</a></li>
+        <li th:if="${#authorization.expression('hasRole(''ADMIN'')')}"><a th:href="@{/model/angajati/get}">Employees</a></li>
+        <li th:if="${#authorization.expression('hasRole(''ADMIN'')')}"><a th:href="@{/model/vanzari/get}">Sales</a></li>
+        <li th:if="${#authorization.expression('hasRole(''ADMIN'')')}"><a th:href="@{/model/clienti/get}">Clients</a></li>
+        <li class="logout"><a th:href="@{/logout}">Logout</a></li>
+    </ul>
+</div>
+
+<!-- Content -->
+<div class="content">
+    <div class="banner">
+        <h2>Welcome to Magazin Calculatoare</h2>
+        <p>Your One-Stop Shop for all Computer Needs</p>
+    </div>
+
+    <div class="features">
+        <div class="feature">
+            <img src="/img/laptop.png" alt="Laptops">
+            <h3>Laptops</h3>
+            <p>Explore a wide range of laptops for every need and budget.</p>
+        </div>
+        <div class="feature">
+            <img src="/img/computer.png" alt="Desktops">
+            <h3>Desktops</h3>
+            <p>Discover powerful desktop computers designed for performance.</p>
+        </div>
+        <div class="feature">
+            <img src="/img/accessories.png" alt="Accessories">
+            <h3>Accessories</h3>
+            <p>Enhance your computer setup with high-quality accessories.</p>
+        </div>
+    </div>
+</div>
+
+<!-- Footer -->
+<div class="footer">
+    &copy; 2023 Computer Store. All rights reserved.
+</div>
+
+</body>
+</html>
+

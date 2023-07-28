@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <title>Error 403 - Forbidden</title>
+  <link rel="stylesheet" type="text/css" href="/css/style.css">
+</head>
+<body>
+<!-- Header -->
+<div class="header">
+  <h1 class="store-name">Magazin Calculatoare</h1>
+  <h1 class="store-name">Error 403 - Forbidden</h1>
+  <ul class="nav-links">
+    <li><a th:href="@{/model/produse/get}">Products</a></li>
+    <!-- Add links for other accessible pages if needed -->
+    <li class="logout"><a th:href="@{/logout}">Logout</a></li>
+  </ul>
+</div>
+
+<!-- Content -->
+<div class="content">
+  <h2>Access Denied</h2>
+  <p>Oops! You do not have permission to access this page. If you believe this is an error, please contact the administrator.</p>
+</div>
+
+<!-- Footer -->
+<div class="footer">
+  &copy; 2023 Your Store Name. All rights reserved.
+</div>
+</body>
+</html>

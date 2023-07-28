@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+  <title>Employees</title>
+  <link rel="stylesheet" type="text/css" href="/css/style.css">
+</head>
+<body>
+<!-- Header -->
+<div class="header">
+  <h1 class="store-name">Magazin Calculatoare</h1>
+  <h1 class="store-name">Employees section</h1>
+  <ul class="nav-links">
+    <li th:if="${#authorization.expression('hasRole(''USER'') or hasRole(''ADMIN'')')}"><a th:href="@{/model/produse/get}">Products</a></li>
+    <li th:if="${#authorization.expression('hasRole(''ADMIN'')')}"><a th:href="@{/model/angajati/get}">Employees</a></li>
+    <li th:if="${#authorization.expression('hasRole(''ADMIN'')')}"><a th:href="@{/model/vanzari/get}">Sales</a></li>
+    <li th:if="${#authorization.expression('hasRole(''ADMIN'')')}"><a th:href="@{/model/clienti/get}">Clients</a></li>
+    <li class="logout"><a th:href="@{/logout}">Logout</a></li>
+  </ul>
+</div>
+
+<!-- Content -->
+<div class="content">
+  <div class="product-list-header">
+    <h2 class="product-list-heading">Employee List</h2>
+    <div class="create-button-wrapper">
+      <!-- Mută butonul "Create New Employee" în partea dreaptă de-a dreptul paginii -->
+      <a th:href="@{/model/angajati/create-form}" class="create-button">Create New Employee</a>
+    </div>
+  </div>
+  <div class="product-list-header">
+    <div class="search">
+      <form th:action="@{/model/angajati/search}" method="get">
+        <label for="nume">Name:</label>
+        <input type="text" id="nume" name="nume">
+
+        <label for="prenume">Prenume:</label>
+        <input type="text" id="prenume" name="prenume">
+
+        <label for="functie">Pozitie:</label>
+        <input type="text" id="functie" name="functie">
+
+        <label for="salariuMin">Salariu Min:</label>
+        <input type="number" id="salariuMin" name="salariuMin">
+
+        <label for="salariuMax">Salariu Max:</label>
+        <input type="number" id="salariuMax" name="salariuMax">
+        <button type="submit">Search</button>
+
+        <a href="/model/angajati/get">
+          <button type="button">Reset</button>
+        </a>
+      </form>
+    </div>
+    <div class="create-button-wrapper">
+      <!-- Export buttons -->
+      <div class="create-button">
+        <a th:href="@{/angajati/export/pdf}" class="btn btn-danger">Export to PDF</a>
+      </div>
+      <div class="create-button">
+        <a th:href="@{/angajati/export/xlsx}" class="btn btn-danger">Export to XLSX</a>
+      </div>
+      <div class="create-button">
+        <a th:href="@{/angajati/generate-chart}" class="btn btn-danger">Generate Chart</a>
+      </div>
+      <div class="create-button">
+        <form th:action="@{/model/angajati/import-products}" method="post" enctype="multipart/form-data">
+          <input type="file" id="file" name="file" required>
+          <button type="submit">Import Products</button>
+        </form>
+      </div>
+    </div>
+  </div>
+  <table>
+    <thead>
+    <tr>
+      <th>Name</th>
+      <th>Prenume</th>
+      <th>Position</th>
+      <th>Salary</th>
+      <th></th>
+      <th></th>
+    </tr>
+    </thead>
+    <tbody>
+    <!-- Loop through the employees and display them in the table -->
+    <tr th:each="angajat : ${angajati}">
+      <td th:text="${angajat.nume}"></td>
+      <td th:text="${angajat.prenume}"></td>
+      <td th:text="${angajat.functie}"></td>
+      <td th:text="${angajat.salariu}"></td>
+      <td>
+        <a th:href="@{/model/angajati/delete(id=${angajat.id})}" class="btn btn-danger ml-2">Delete</a>
+      </td>
+      <td>
+        <!-- Add update button with link to update the employee -->
+        <a th:href="@{/model/angajati/edit(id=${angajat.id})}" class="btn btn-danger ml-2">Update</a>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- Footer -->
+<div class="footer">
+  &copy; 2023 Your Store Name. All rights reserved.
+</div>
+</body>
+</html>

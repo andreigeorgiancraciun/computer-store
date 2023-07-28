@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <title>Clients</title>
+    <link rel="stylesheet" type="text/css" href="/css/style.css">
+</head>
+<body>
+<!-- Header -->
+<div class="header">
+    <h1 class="store-name">Magazin Calculatoare</h1>
+    <h1 class="store-name">Clients section</h1>
+    <ul class="nav-links">
+        <li th:if="${#authorization.expression('hasRole(''USER'') or hasRole(''ADMIN'')')}"><a th:href="@{/model/produse/get}">Products</a></li>
+        <li th:if="${#authorization.expression('hasRole(''ADMIN'')')}"><a th:href="@{/model/angajati/get}">Employees</a></li>
+        <li th:if="${#authorization.expression('hasRole(''ADMIN'')')}"><a th:href="@{/model/vanzari/get}">Sales</a></li>
+        <li th:if="${#authorization.expression('hasRole(''ADMIN'')')}"><a th:href="@{/model/clienti/get}">Clients</a></li>
+        <li class="logout"><a th:href="@{/logout}">Logout</a></li>
+    </ul>
+</div>
+
+<!-- Content -->
+<div class="content">
+    <div class="product-list-header">
+        <h2 class="product-list-heading">Clients List</h2>
+        <div class="create-button-wrapper">
+            <!-- Mută butonul "Create New Product" în partea dreaptă de-a dreptul paginii -->
+            <a th:href="@{/model/clienti/create-form}" class="create-button">Create New Product</a>
+        </div>
+    </div>
+    <table>
+        <thead>
+        <tr>
+            <th>Client Name</th>
+            <th>Client Prenume</th>
+            <th>Address</th>
+            <th>Email</th>
+            <th>Phone</th>
+            <th></th>
+            <th></th>
+        </tr>
+        </thead>
+        <tbody>
+        <!-- Loop through the clients and display them in the table -->
+        <tr th:each="client : ${clients}">
+            <td th:text="${client.nume}"></td>
+            <td th:text="${client.prenume}"></td>
+            <td th:text="${client.adresa}"></td>
+            <td th:text="${client.email}"></td>
+            <td th:text="${client.telefon}"></td>
+            <td>
+                <a th:href="@{/model/clienti/delete(id=${client.id})}" class="btn btn-danger ml-2">Delete</a>
+            </td>
+            <td>
+                <!-- Add update button with link to update the product -->
+                <a th:href="@{/model/clienti/edit(id=${client.id})}" class="btn btn-danger ml-2">Update</a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+<!-- Footer -->
+<div class="footer">
+    &copy; 2023 Your Store Name. All rights reserved.
+</div>
+</body>
+</html>

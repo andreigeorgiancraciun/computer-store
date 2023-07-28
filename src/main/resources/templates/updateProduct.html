@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <title>Update Product</title>
+    <link rel="stylesheet" type="text/css" href="/css/style.css">
+</head>
+<body>
+<!-- Header -->
+<div class="header">
+    <h1 class="store-name">Magazin Calculatoare</h1>
+    <h1 class="store-name">Update Product</h1>
+    <ul class="nav-links">
+        <li th:if="${#authorization.expression('hasRole(''USER'') or hasRole(''ADMIN'')')}"><a th:href="@{/model/produse/get}">Products</a></li>
+        <li th:if="${#authorization.expression('hasRole(''ADMIN'')')}"><a th:href="@{/model/angajati/get}">Employees</a></li>
+        <li th:if="${#authorization.expression('hasRole(''ADMIN'')')}"><a th:href="@{/model/vanzari/get}">Sales</a></li>
+        <li th:if="${#authorization.expression('hasRole(''ADMIN'')')}"><a th:href="@{/model/clienti/get}">Clients</a></li>
+        <li class="logout"><a th:href="@{/logout}">Logout</a></li>
+    </ul>
+</div>
+
+<!-- Content -->
+<div class="content">
+    <h2>Update Product</h2>
+    <form th:action="@{/model/produse/update/{id}(id=${product.id})}" method="post">
+        <label for="nume">Name:</label>
+        <input type="text" id="nume" name="nume" th:value="${product.nume}" required>
+
+        <label for="descriere">Description:</label>
+        <input type="text" id="descriere" name="descriere" th:value="${product.descriere}" required>
+
+        <label for="pret">Price:</label>
+        <input type="number" id="pret" name="pret" th:value="${product.pret}" required>
+
+        <label for="cantitateInStoc">Quantity in Stock:</label>
+        <input type="number" id="cantitateInStoc" name="cantitateInStoc" th:value="${product.cantitateInStoc}" required>
+
+        <label for="specificatiiTehnice">Technical Specifications:</label>
+        <textarea id="specificatiiTehnice" name="specificatiiTehnice" rows="5" required th:text="${product.specificatiiTehnice}"></textarea>
+
+        <!-- Add a hidden input field to send the product ID to the controller -->
+        <input type="hidden" id="id" name="id" th:value="${product.id}">
+
+        <button type="submit">Update</button>
+    </form>
+</div>
+
+<!-- Footer -->
+<div class="footer">
+    &copy; 2023 Your Store Name. All rights reserved.
+</div>
+</body>
+</html>

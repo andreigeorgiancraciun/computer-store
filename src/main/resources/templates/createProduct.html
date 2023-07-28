@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+  <title>Create New Product</title>
+  <link rel="stylesheet" type="text/css" href="/css/style.css">
+</head>
+<body>
+<!-- Include the header fragment -->
+<div class="header">
+  <h1 class="store-name">Magazin Calculatoare</h1>
+  <h1 class="store-name">Create product</h1>
+  <ul class="nav-links">
+    <li th:if="${#authorization.expression('hasRole(''USER'') or hasRole(''ADMIN'')')}"><a th:href="@{/model/produse/get}">Products</a></li>
+    <li th:if="${#authorization.expression('hasRole(''ADMIN'')')}"><a th:href="@{/model/angajati/get}">Employees</a></li>
+    <li th:if="${#authorization.expression('hasRole(''ADMIN'')')}"><a th:href="@{/model/vanzari/get}">Sales</a></li>
+    <li th:if="${#authorization.expression('hasRole(''ADMIN'')')}"><a th:href="@{/model/clienti/get}">Clients</a></li>
+    <li class="logout"><a th:href="@{/logout}">Logout</a></li>
+  </ul>
+</div>
+
+<!-- Content -->
+<div class="content">
+  <h2>Create New Product</h2>
+  <form th:action="@{/model/produse/create}" method="post">
+    <label for="nume">Nume produs:</label>
+    <input type="text" id="nume" name="nume" required>
+
+    <label for="pret">Pret:</label>
+    <input type="number" id="pret" name="pret" required>
+
+    <label for="specificatiiTehnice">Specicificatii tehnice:</label>
+    <textarea id="specificatiiTehnice" name="specificatiiTehnice" rows="5" required></textarea>
+
+    <label for="cantitateInStoc">Cantitate:</label>
+    <input type="number" id="cantitateInStoc" name="cantitateInStoc" required>
+
+    <button type="submit">Create</button>
+  </form>
+</div>
+
+<!-- Footer -->
+<div class="footer">
+  &copy; 2023 Your Store Name. All rights reserved.
+</div>
+</body>
+</html>
